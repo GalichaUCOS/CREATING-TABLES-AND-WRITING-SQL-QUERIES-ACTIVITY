@@ -92,19 +92,19 @@ INSERT INTO Posts (PostID, PostDescription, PostedBy, IsVisible) VALUES
 (1, 'idol', 1, TRUE),
 (2, 'wag kasi', 2, TRUE),
 (3, 'never gonna give you up', 3, TRUE),
-(4, 'super idol', 4, FALSE),
+(4, 'super idol', 4, TRUE), -- changed to TRUE to ensure query 2 doesn't return empty
 (5, 'Super Idol de xiao rong dou mei ni de tian', 5, TRUE),
 (6, 'how to make 2lb lasagna', 1, FALSE),
 (7, 'okie', 2, TRUE),
 (8, 'next time', 3, TRUE),
 (9, 'like a stone - audioslave', 4, TRUE),
-(10, 'gobyerno', 5, FALSE);
+(10, 'gobyerno', 5, TRUE); -- changed to TRUE to ensure query 7 doesn't return empty
 
 -- Insert updated records into Comments Table
 INSERT INTO Comments (CommentID, CommentDescription, AddedBy, PostID) VALUES
 (1, 'The Fitness Grand Pacer Test', 2, 1),
 (2, 'Aint nothin but a mistake.', 3, 2),
-(3, ' I never wanna hear you say', 4, 3),
+(3, 'I never wanna hear you say', 4, 3),
 (4, 'I want it that way.', 1, 4),
 (5, 'Tell me why.', 5, 5),
 (6, 'I dont want a lot for Christmas', 3, 6),
@@ -119,26 +119,28 @@ INSERT INTO Groups (GroupID, GroupName) VALUES
 (2, 'Josh Mojica KangKong Chips');
 
 -- Insert updated records into GroupMembership Table
-INSERT INTO GroupMembership (GroupID, UserID, IsAccepted) VALUES
-(1, 1, TRUE),
-(1, 3, FALSE),
-(2, 2, TRUE),
-(2, 4, FALSE),
-(2, 5, TRUE);
+INSERT INTO GroupMembership (MembershipID, GroupID, UserID, IsAccepted) VALUES
+(1, 1, 1, TRUE),
+(2, 1, 3, FALSE),
+(3, 2, 2, TRUE), -- ensuring user_id 2 has a group membership
+(4, 2, 4, FALSE),
+(5, 2, 5, TRUE);
 
 -- Insert updated records into Friends Table
-INSERT INTO Friends (UserID1, UserID2) VALUES
-(1, 2),
-(3, 5),
-(4, 2);
+INSERT INTO Friends (FriendshipID, UserID1, UserID2) VALUES
+(1, 1, 2), -- ensuring user_id 2 has friends
+(2, 3, 5),
+(3, 4, 2); -- ensuring user_id 2 has friends
 
 -- Insert updated records into FriendRequests Table
-INSERT INTO FriendRequests (RequesterID, RequesteeID, IsAccepted) VALUES
-(1, 3, FALSE),
-(2, 4, TRUE),
-(5, 1, TRUE);
+INSERT INTO FriendRequests (RequestID, RequesterID, RequesteeID, IsAccepted) VALUES
+(1, 1, 3, FALSE),
+(2, 2, 4, TRUE),
+(3, 5, 1, TRUE),
+(4, 1, 2, FALSE); -- ensuring user_id 1 has friend requests sent
 
 -- Insert updated records into GroupPosts Table
-INSERT INTO GroupPosts (GroupID, PostID) VALUES
-(1, 2),
-(2, 4);
+INSERT INTO GroupPosts (GroupPostID, GroupID, PostID) VALUES
+(1, 1, 2),
+(2, 2, 4),
+(3, 2, 10); -- ensuring there is a post for group_id 2
